@@ -17,7 +17,7 @@ export const jogadorIndex = async (req, res) => {
   
     // se não informou estes atributos
     if (!nome || !clube || !posicao || !salario || !idade) {
-      res.status(400).json({ id: 0, msg: "Erro... Informe nome, clube, posicao e salario do jogador." })
+      res.status(400).json({ id: 0, msg: "Erro... Informe nome, clube, posicao, idade e salario do jogador." })
       return
     }
   
