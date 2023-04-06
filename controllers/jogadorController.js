@@ -16,12 +16,10 @@ export const jogadorCreate = async (req, res) => {
 
   // se não informou estes atributos
   if (!nome || !clube || !posicao || !salario || !idade) {
-    res
-      .status(400)
-      .json({
-        id: 0,
-        msg: "Erro... Informe nome, clube, posicao, idade e salario do jogador.",
-      });
+    res.status(400).json({
+      id: 0,
+      msg: "Erro... Informe nome, clube, posicao, idade e salario do jogador.",
+    });
     return;
   }
 
@@ -44,12 +42,10 @@ export const jogadorUpdate = async (req, res) => {
   const { nome, clube, posicao, idade, salario } = req.body;
 
   if (!nome || !clube || !posicao || !idade || !salario) {
-    res
-      .status(400)
-      .json({
-        id: 0,
-        msg: "Erro... Informe nome, clube, posicao e idade do jogador.",
-      });
+    res.status(400).json({
+      id: 0,
+      msg: "Erro... Informe nome, clube, posicao e idade do jogador.",
+    });
     return;
   }
 
@@ -121,11 +117,15 @@ export const idadeIntervalo = async (req, res) => {
 export const pesquisaGeral = async (req, res) => {
   const { pesquisa } = req.params;
 
-  try{
+  try {
     const jogadores = await Jogador.findAll({
-      where:{
-        nome, clube, posicao, idade, salario:{
-          
+      where: {
+        nome,
+        clube,
+        posicao,
+        idade,
+        salario: {
+          [Op.like]: "%" + pesquisa + "%"
         },
       },
     });
@@ -133,4 +133,4 @@ export const pesquisaGeral = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-}
+};
