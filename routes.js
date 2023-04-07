@@ -1,5 +1,6 @@
 import { Router } from "express"
-import { jogadorIndex, jogadorCreate, jogadorUpdate, jogadorDestroy, jogadorNome, idadeIntervalo, pesquisaGeral } from "./controllers/jogadorController.js"
+import { jogadorIndex, jogadorCreate, jogadorUpdate, jogadorDestroy, jogadorNome, idadeIntervalo, 
+      pesquisaGeral, numeroJogadores } from "./controllers/jogadorController.js"
 
 const router = Router()
 
@@ -9,6 +10,7 @@ router.get('/jogadores', jogadorIndex)
       .delete('/jogadores/:id', jogadorDestroy)
       .get('/jogadores/pesq/:nome', jogadorNome)
       .get('/jogadores/pesq/:idadeUm/:idadeDois', idadeIntervalo)
-      .get('/jogadores/pesq/:pesquisa', pesquisaGeral)
+      .get('/jogadores/geral/:pesquisa', pesquisaGeral)
+      .get('/jogadores/totalJogadores', numeroJogadores)
 
 export default router

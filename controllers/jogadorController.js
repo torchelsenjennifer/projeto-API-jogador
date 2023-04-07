@@ -120,13 +120,23 @@ export const pesquisaGeral = async (req, res) => {
   try {
     const jogadores = await Jogador.findAll({
       where: {
-        nome,
-        clube,
-        posicao,
-        idade,
-        salario: {
-          [Op.like]: "%" + pesquisa + "%"
-        },
+        [Op.or]: [
+          {
+            nome: { [Op.like]: "%" + pesquisa + "%" },
+          },
+          {
+            clube: { [Op.like]: "%" + pesquisa + "%" },
+          },
+          {
+            posicao: { [Op.like]: "%" + pesquisa + "%" },
+          },
+          {
+            idade: { [Op.like]: "%" + pesquisa + "%" },
+          },
+          {
+            salario: { [Op.like]: "%" + pesquisa + "%" },
+          },
+        ],
       },
     });
     res.status(200).json(jogadores);
@@ -134,3 +144,14 @@ export const pesquisaGeral = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+export const numeroJogadores = async (res) => {
+
+  try{
+    const jogadores = await Jogador.count()
+    res.status(200).json({numeroJogadores: jogadores});
+  }catch (error) {
+    res.status(400).send(error);
+  }
+};
+
