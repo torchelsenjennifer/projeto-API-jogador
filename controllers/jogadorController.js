@@ -145,13 +145,31 @@ export const pesquisaGeral = async (req, res) => {
   }
 };
 
-export const numeroJogadores = async (res) => {
-
-  try{
-    const jogadores = await Jogador.count()
-    res.status(200).json({numeroJogadores: jogadores});
-  }catch (error) {
+export const estatistica = async (req, res) => {
+  try {
+    const jogadores = await Jogador.count();
+    const salario = await Jogador.sum("salario");
+    const idades = await Jogador.sum('idade')
+    res.status(200).json({
+      numeroJogadores: jogadores,
+      totalSalario: salario,
+      media: Math.round(idades/jogadores)
+    });
+  } catch (error) {
     res.status(400).send(error);
   }
 };
 
+export const incrementaIdade = async (req, res) => {
+  
+  try {
+    const jogadores = await Jogador.findAll();
+
+    jogadores.forEach(async jogador => {
+      await jogador.increment('idade',{by:1})
+    })
+    res.status(200).json({mesagem: 'Idade dos jogadores incrementada em um ano!'});
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
