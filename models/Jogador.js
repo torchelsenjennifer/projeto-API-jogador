@@ -26,6 +26,11 @@ export const Jogador = sequelize.define('Jogador', {
   salario: {
     type: DataTypes.REAL,
     allowNull: false
+  },
+  nacionalidade:{
+    type: DataTypes.STRING(20),
+    defaultValue: 'Brasileira',
+    allowNull: false
   }
 }, {
   tableName : 'jogadores'

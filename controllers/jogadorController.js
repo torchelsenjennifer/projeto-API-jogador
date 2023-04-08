@@ -12,7 +12,7 @@ export const jogadorIndex = async (req, res) => {
 };
 
 export const jogadorCreate = async (req, res) => {
-  const { nome, clube, posicao, salario, idade } = req.body;
+  const { nome, clube, posicao, salario, idade, nacionalidade} = req.body;
 
   // se não informou estes atributos
   if (!nome || !clube || !posicao || !salario || !idade) {
@@ -30,6 +30,7 @@ export const jogadorCreate = async (req, res) => {
       posicao,
       salario,
       idade,
+      nacionalidade
     });
     res.status(201).json(jogador);
   } catch (error) {
@@ -39,7 +40,7 @@ export const jogadorCreate = async (req, res) => {
 
 export const jogadorUpdate = async (req, res) => {
   const { id } = req.params;
-  const { nome, clube, posicao, idade, salario } = req.body;
+  const { nome, clube, posicao, idade, salario, nacionalidade } = req.body;
 
   if (!nome || !clube || !posicao || !idade || !salario) {
     res.status(400).json({
@@ -57,6 +58,7 @@ export const jogadorUpdate = async (req, res) => {
         posicao,
         idade,
         salario,
+        nacionalidade
       },
       {
         where: { id },
