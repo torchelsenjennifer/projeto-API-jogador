@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { jogadorIndex, jogadorCreate, jogadorUpdate, jogadorDestroy, jogadorNome, idadeIntervalo, 
-      pesquisaGeral, estatistica, incrementaIdade } from "./controllers/jogadorController.js"
+      pesquisaGeral, estatistica, incrementaIdade, decresenteSalario } from "./controllers/jogadorController.js"
 
 const router = Router()
 
@@ -13,5 +13,6 @@ router.get('/jogadores', jogadorIndex)
       .get('/jogadores/geral/:pesquisa', pesquisaGeral)
       .get('/jogadores/estatistica', estatistica)
       .get('/jogadores/incrementa', incrementaIdade)
+      .get('/jogadores/decresenteSalario', decresenteSalario)
       
 export default router

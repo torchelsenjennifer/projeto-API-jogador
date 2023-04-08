@@ -149,11 +149,11 @@ export const estatistica = async (req, res) => {
   try {
     const jogadores = await Jogador.count();
     const salario = await Jogador.sum("salario");
-    const idades = await Jogador.sum('idade')
+    const idades = await Jogador.sum("idade");
     res.status(200).json({
       numeroJogadores: jogadores,
       totalSalario: salario,
-      media: Math.round(idades/jogadores)
+      media: Math.round(idades / jogadores),
     });
   } catch (error) {
     res.status(400).send(error);
@@ -161,14 +161,28 @@ export const estatistica = async (req, res) => {
 };
 
 export const incrementaIdade = async (req, res) => {
-  
   try {
     const jogadores = await Jogador.findAll();
 
-    jogadores.forEach(async jogador => {
-      await jogador.increment('idade',{by:1})
-    })
-    res.status(200).json({mesagem: 'Idade dos jogadores incrementada em um ano!'});
+    jogadores.forEach(async (jogador) => {
+      await jogador.increment("idade", { by: 1 });
+    });
+    res
+      .status(200)
+      .json({ mesagem: "Idade dos jogadores incrementada em um ano!" });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+export const decresenteSalario = async (req, res) => {
+  try {
+    const jogadores = await Jogador.findAll({
+      attributes:['nome','salario'],
+      order: [["salario", "DESC"]],
+    });
+
+    res.status(200).json(jogadores);
   } catch (error) {
     res.status(400).send(error);
   }
